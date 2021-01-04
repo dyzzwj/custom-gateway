@@ -32,7 +32,7 @@ public class HelloController {
     @PostMapping("/user")
     public String user(HttpServletRequest request,@RequestBody User user){
         System.out.println(request);
-        System.out.println(user);
+        System.out.println("user:"+user);
 
         HttpHeaders headers = new HttpHeaders();
         //设置请求媒体数据类型

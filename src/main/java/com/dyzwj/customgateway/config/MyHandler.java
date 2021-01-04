@@ -2,9 +2,19 @@ package com.dyzwj.customgateway.config;
 
 public interface MyHandler {
 
-    boolean support(String channel);
+    /**
+     * 支持的渠道
+     * @param channel
+     * @return
+     */
+    default boolean support(String channel){
+        return true;
+    }
 
-
+    /**
+     * 执行顺序
+     * @return
+     */
     int order();
 
 }

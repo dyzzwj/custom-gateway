@@ -19,13 +19,16 @@ public class ResponseWrapper extends HttpServletResponseWrapper {
         super(response);
         this.originalResponse = response;
     }
+
     //获取包装前的response
     public HttpServletResponse getOriginalResponse(){
         return this.originalResponse;
     }
+
     public byte[] getBody() {
         return byteArrayOutputStream.toByteArray();
     }
+
 
     @Override
     public ServletOutputStream getOutputStream() {
