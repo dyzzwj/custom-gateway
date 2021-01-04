@@ -18,7 +18,19 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
     private final Logger log = LoggerFactory.getLogger(CommonInterceptor.class);
 
     @Autowired
-    List<MyHandler> handlers;
+    List<MyRequestHandler> myRequestHandlers;
+
+    @Autowired
+    List<MyResponseHandler> myResponseHandlers;
+
+
+    public List<MyRequestHandler> getMyRequestHandlers() {
+        return myRequestHandlers;
+    }
+
+    public List<MyResponseHandler> getMyResponseHandlers() {
+        return myResponseHandlers;
+    }
 
     public CommonInterceptor() {
     }
@@ -26,7 +38,7 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
     @PostConstruct
     public void init(){
         //对handler排序
-       Collections.sort(handlers,(h1,h2) -> h1.order() > h2.order() ? 1: -1);
+       Collections.sort(myRequestHandlers,(h1, h2) -> h1.order() > h2.order() ? 1: -1);
 
     }
 
@@ -34,9 +46,9 @@ public class CommonInterceptor extends HandlerInterceptorAdapter {
         if(request instanceof RequestWrapper){
             String channel = "ali";
             System.out.println(request);
-            for (MyHandler myHandler : handlers) {
-                if (myHandler.support(channel)){
-                    myHandler.handleRequest((RequestWrapper) request);
+            for (MyRequestHandler myRequestHandler : getMyRequestHandlers()) {
+                if (myRequestHandler.support(channel)){
+                    myRequestHandler.handleRequest((RequestWrapper) request);
                 }
             }
         }

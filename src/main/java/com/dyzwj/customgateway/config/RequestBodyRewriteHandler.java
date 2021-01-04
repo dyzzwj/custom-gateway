@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class BodyRewriteHandler implements MyHandler {
+public class RequestBodyRewriteHandler implements MyRequestHandler {
 
     @Override
     public boolean support(String channel) {

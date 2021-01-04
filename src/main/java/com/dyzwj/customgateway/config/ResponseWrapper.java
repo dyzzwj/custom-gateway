@@ -13,15 +13,15 @@ public class ResponseWrapper extends HttpServletResponseWrapper {
 
 
     private ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-    private HttpServletResponse response;
+    private HttpServletResponse originalResponse;
 
     public ResponseWrapper(HttpServletResponse response) {
         super(response);
-        this.response = response;
+        this.originalResponse = response;
     }
     //获取包装前的response
-    public HttpServletResponse getNativeResponse(){
-        return this.response;
+    public HttpServletResponse getOriginalResponse(){
+        return this.originalResponse;
     }
     public byte[] getBody() {
         return byteArrayOutputStream.toByteArray();
@@ -29,12 +29,12 @@ public class ResponseWrapper extends HttpServletResponseWrapper {
 
     @Override
     public ServletOutputStream getOutputStream() {
-        return new ServletOutputStreamWrapper(this.byteArrayOutputStream , this.response);
+        return new ServletOutputStreamWrapper(this.byteArrayOutputStream , this.originalResponse);
     }
 
     @Override
     public PrintWriter getWriter() throws IOException {
-        return new PrintWriter(new OutputStreamWriter(this.byteArrayOutputStream , this.response.getCharacterEncoding()));
+        return new PrintWriter(new OutputStreamWriter(this.byteArrayOutputStream , this.originalResponse.getCharacterEncoding()));
     }
 
 
