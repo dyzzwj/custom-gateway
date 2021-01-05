@@ -19,15 +19,11 @@ public class CommonInterceptor implements HandlerInterceptor {
     private final Logger log = LoggerFactory.getLogger(CommonInterceptor.class);
 
     @Autowired
-    List<MyRequestHandler> myRequestHandlers;
-
-
-
+    private List<MyRequestHandler> myRequestHandlers;
 
     public List<MyRequestHandler> getMyRequestHandlers() {
         return myRequestHandlers;
     }
-
 
     public CommonInterceptor() {
     }
@@ -36,7 +32,6 @@ public class CommonInterceptor implements HandlerInterceptor {
     public void init(){
         //对handler排序
        Collections.sort(getMyRequestHandlers(),(h1, h2) -> h1.order() > h2.order() ? 1: -1);
-
     }
 
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
